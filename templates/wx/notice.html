@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>纸微</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+
+    <style type="text/css">
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        html,
+        body,
+        div {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            outline: 0;
+        }
+
+        .container {
+            height: 100%;
+            background-color: white;
+        }
+
+        .container .header_box {
+            height: 20%;
+            background-size: 100% 100%;
+        }
+
+        .container .header_box .header_title {
+            height: 70%;
+            color: white;
+            text-align: center;
+            font-family: Georgia;
+        }
+
+        .nothing {
+            height: 5%;
+        }
+
+        .container .main_box {
+            height: 65%;
+            text-align: center;
+            color: rgb(175, 183, 255);
+        }
+
+        .container .main_box .fail_box {
+            height: 87%;
+        }
+
+        .container .main_box .service_box {
+            height: 40px;
+        }
+
+        .container .footer_box {
+            height: 10%;
+            background-size: 100% 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header_box" style="background-image: url(/Addons/YiKaTong/View/default/Public/images/tissuenew/header.jpg);">
+            <div class="header_title">Free tissue</div>
+        </div>
+        <div class="nothing"></div>
+        <div class="main_box">
+
+            <div class="fail_box">
+                <div>
+                    <image id="finish_img" style="height:180px;" src="" /> </div>
+                <div>
+                    <text id="finish_notice" style="font-size: 18px;"></text>
+                    <br>
+
+                    <text id="finish_notice2" style="font-size: 12px;"></text>
+                </div>
+
+
+            </div>
+
+
+            <div class="service_box">
+                <text>客服：
+                    <a style="text-decoration:none;color: rgb(175,183,255);" href="tel:18027133575">18027133575</a>
+                </text>
+                <br>
+                <text style="color: black;font-size: 12px;">Copyright &copy;2018纸色</text>
+
+            </div>
+        </div>
+        <div class="footer_box" style="background-image: url(/Addons/YiKaTong/View/default/Public/images/tissuenew/footer.jpg);"></div>
+
+        <input type="hidden" name="ControlNumber" id="ControlNumber" value="" />
+        <input type="hidden" name="telephone" id="telephone" value="" />
+        <input type="hidden" name="vcode" id="vcode" value="" />
+        <input type="hidden" name="advid" id="advid" value="" />
+        <input type="hidden" name="controlid" id="controlid" value="" />
+        <input type="hidden" name="openid" id="openid" value="" />
+        <input type="hidden" name="role" id="role" value="">
+    </div>
+</body>
+<script type="text/javascript" src="/Public/static/jquery-2.0.3.min.js"></script>
+<script type="text/javascript">
+    var h = $('.header_title').height();
+
+    $('.header_title').css('line-height', h + 'px');
+    $('.qr_bg>div').css('height', $('.qr_bg>div').width() + 'px');
+
+
+
+
+    var jumpurl = 'https://mp.weixin.qq.com/s/ASFuDyUCJQbWr65puJkrCg';
+
+    var isfailOrsuccess = '1';//1失败,2成功
+    getFailOrSuccess(isfailOrsuccess);
+
+
+    console.log(jumpurl);
+    function getFailOrSuccess(flag) {
+        if (flag == 1) {
+
+            $('#finish_img').attr('src', "/Addons/YiKaTong/View/default/Public/images/tissuenew/failIcon.jpg");
+            $('#finish_notice').html('领取失败');
+            $('#finish_notice2').html('Receive failure');
+            if (jumpurl) {
+                setTimeout("window.location = jumpurl;", 1000);
+
+            }
+
+
+        } else if (flag == 2) {
+
+            $('#finish_img').attr('src', "/Addons/YiKaTong/View/default/Public/images/tissuenew/successIcon.jpg");
+            $('#finish_notice').html('领取成功');
+            $('#finish_notice2').html('Receive success');
+            if (jumpurl) {
+                setTimeout("window.location = jumpurl;", 1000);
+            }
+        }
+    }
+
+
+
+
+</script>
+
+</html>

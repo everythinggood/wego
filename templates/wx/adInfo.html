@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>纸色</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+
+    <link rel="stylesheet" type="text/css" href="https://res.wx.qq.com/open/libs/weui/1.1.2/weui.min.css" />
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css">
+
+    <style type="text/css">
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        html,
+        body,
+        div {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            outline: 0;
+        }
+
+        .container {
+            height: 100%;
+            background-color: white;
+        }
+
+        .container .header_box {
+            height: 20%;
+            background-size: 100% 100%;
+        }
+
+        .container .header_box .header_title {
+            height: 70%;
+            color: white;
+            text-align: center;
+            font-family: Georgia;
+        }
+
+        .nothing {
+            height: 5%;
+        }
+
+        .container .main_box {
+            height: 65%;
+        }
+
+        .container .main_box .qr_box {
+            height: 80%;
+        }
+
+        .container .main_box .qr_box .qr_bg {
+            height: 70%;
+        }
+
+        .container .main_box .qr_box .qr_bg>div {
+            height: 70%;
+            width: 50%;
+            margin-left: 25%;
+            background-size: 100% 100%;
+        }
+
+        .container .main_box .qr_box .qr_notice {
+            height: 50px;
+            background-size: 100% 100%;
+            line-height: 50px;
+            text-align: center;
+            color: rgb(175, 183, 255);
+        }
+
+        .container .main_box .qr_box .qr_notice text {
+            color: rgb(175, 163, 255);
+            font-size: 24px;
+        }
+
+        .container .main_box .buy_box {
+            height: 40px;
+        }
+
+        .container .main_box .buy_box .buy_btn {
+            height: 40px;
+            line-height: 40px;
+            margin: 20px 30%;
+            background-size: 100% 100%;
+            text-align: center;
+            color: white;
+        }
+
+        .container .footer_box {
+            height: 10%;
+            background-size: 100% 100%;
+        }
+
+        .weui-dialog__hd {
+            color: rgb(175, 163, 255);
+        }
+
+        .weui-dialog__bd {
+            color: rgb(175, 183, 255);
+        }
+
+        .weui-dialog__btn {
+            color: rgb(175, 163, 255);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header_box" style="background-image: url(/Addons/YiKaTong/View/default/Public/images/tissuenew/header.jpg);">
+            <div class="header_title">Free tissue</div>
+        </div>
+        <div class="nothing"></div>
+        <div class="main_box">
+            <div class="qr_box">
+                <div class="qr_bg">
+                    <div style="background-image: url(/Addons/YiKaTong/View/default/Public/images/tissuenew/imgbuild-250.png);">
+                        <img id="qrimg" style="height:74%;width:74%;margin:13% 12% 13% 14%;border-radius:20px;" src="http://39.108.74.37:8888/Images/Advertising/QrCode_bf2c14c5-3e62-e811-9f0e-6c92bf5ca7b2.jpg?ran=289146762">
+                    </div>
+                </div>
+                <div class="qr_notice" style="background-image: url(/Addons/YiKaTong/View/default/Public/images/tissuenew/tipIcon.jpg);">回复
+                    <text> 888 </text>免费领纸</div>
+            </div>
+            <div class="buy_box">
+                <div class="buy_btn l-pay" style="background-image: url(/Addons/YiKaTong/View/default/Public/images/tissuenew/button.png);">为绿化捐一包</div>
+            </div>
+        </div>
+        <div class="footer_box" style="background-image: url(/Addons/YiKaTong/View/default/Public/images/tissuenew/footer.jpg);"></div>
+
+        <form id="wxorder">
+            <input type="hidden" name="ControlNumber" id="ControlNumber" value="1012171230001599">
+            <input type="hidden" name="packageid" value="00000000-0000-0000-0000-000000000000">
+            <input type="hidden" name="pname" value="0.50元一局">
+            <input type="hidden" name="name" value="">
+            <input type="hidden" name="userid" value="oHUsX08KuXrkn_iUVha58JwEWlQE">
+        </form>
+    </div>
+</body>
+<script type="text/javascript" src="/Public/static/jquery-2.0.3.min.js"></script>
+<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.min.js"></script>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+    var loaded = 0;
+    var h = $('.header_title').height();
+    $('.header_title').css('line-height', h + 'px');
+    $('.qr_bg>div').css('height', $('.qr_bg>div').width() + 'px');
+
+    if ('http://39.108.74.37:8888/Images/Advertising/QrCode_bf2c14c5-3e62-e811-9f0e-6c92bf5ca7b2.jpg?ran=289146762' == '') {
+        $('#qrimg').css('display', 'none');
+    }
+
+    var ad_num = "1";
+
+
+    function exit() {
+        if (typeof (AlipayJSBridge) != "undefined") {
+            AlipayJSBridge.call('exitApp');
+        }
+        if (typeof (wx) != "undefined") {
+            wx.closeWindow();
+        }
+    }
+
+    function hideloading() {
+        loaded++;
+        if (loaded >= 2) {
+            $.hideLoading();
+        }
+    }
+    var checkurl = "http://m.zhiwei99.com/addon/YiKaTong/Tissue/checkStatus";
+    checkurl = checkurl.replace('y_zhiweicom', 'y_zhiweicom/index.php');
+    $.ajax({
+        type: 'GET',
+        url: checkurl,
+        dataType: 'json',
+        data: { "cn": $('#ControlNumber').val() },
+        cache: false,
+        error: function (jqXHR, textStatus, errorThrown) {
+            //dialogError('您的网络不稳定，请扫码重试！coed:0002');
+        },
+        success: function (data) {
+            //alert(data);
+            hideloading();
+            if (data > 0) {
+                $.alert('/(ㄒoㄒ)/~~<br /><br />手太慢，纸巾已领完啦！老板正在加紧补货中...', '暂停服务', function () {
+                    exit();
+                })
+            } else {
+                if (ad_num == 0) {
+
+                    $.modal({
+                        title: "温馨提示",
+                        text: " <br />今天您的免费额度已经花费完了！请支付0.5元领取纸巾",
+                        buttons: [
+                            { text: "取消", className: "default", onClick: function () { console.log(3) } },
+                            { text: "确认支付", onClick: function () { wxpay(); } }
+                        ]
+                    });
+                } else {
+                    adpay();
+                }
+
+            }
+        }
+    });
+
+    function wxpay() {
+        $.showLoading();
+        if (browsertype == '1') {
+            var url = "http://m.zhiwei99.com/addon/YiKaTong/Deposit/wxorder";
+            url = url.replace('y_zhiweicom', 'y_zhiweicom/index.php');
+            console.log(url);
+            //	$.post("http://m.zhiwei99.com/addon/YiKaTong/Deposit/wxorder",
+            $.post(url,
+                $('#wxorder').serialize(),
+                function (data) {
+                    flag = 1;
+                    console.log(data);
+                    var jdata = $.parseJSON(data);
+                    if (jdata.MsgID == 1) {
+                        $.hideLoading();
+                        wxpay_type_0(jdata);
+                    } else {
+                        $.hideLoading();
+                        $.alert(jdata.MsgText);
+                    }
+                }
+            );
+        }
+
+    }
+    var wxpay_type_0 = function (data) {
+        WeixinJSBridge.invoke(
+            'getBrandWCPayRequest',
+            $.parseJSON(data.Data),
+            function (res) {
+                WeixinJSBridge.log(res);
+                //alert(res.err_msg);
+                if (res.err_msg == "get_brand_wcpay_request:ok") {
+
+                    if (data.jumpUrl != '') {
+                        window.location = data.jumpUrl;
+                    }
+                } else if (res.err_msg == "get_brand_wcpay_request:fail") {
+                    $.alert("支付失败！\r\n[code]:" + res.err_code + '\r\n[desc]:' + res.err_desc + '\r\n[msg]:' + res.err_msg);
+                } else if (res.err_msg == "get_brand_wcpay_request:cancel") {
+                    $.alert('您已取消支付', '支付取消');
+                }
+                else {
+                    $.alert('订单发起失败，请稍后再试!', '操作失败');
+                }
+            }
+        );
+    }
+
+    function adpay() {
+        var url = "http://m.zhiwei99.com/addon/YiKaTong/Tissue/getAdvCount";
+        url = url.replace('y_zhiweicom', 'y_zhiweicom/index.php');
+        $.get(url, function (data) {
+            $.hideLoading();
+            var json = $.parseJSON(data);
+
+            if (Number(json.Data) > 0) {
+                //window.location.href="http://b.zhiwei99.com/addon/YiKaTong/Tissue/advTissue?C=1012171230001599&cnum=1012171230001599&mid=2a7ecf72-596d-e811-9f0e-6c92bf5ca7b2&bid=4b44f5d8-5b50-e811-be67-9ce374d09fcd&uid=oHUsX08KuXrkn_iUVha58JwEWlQE&payurl=http%3A%2F%2Fm.zhiwei99.com%2Faddon%2FYiKaTong%2FTissue%2Findex%3FC%3D1012171230001599&kid=oHUsX08KuXrkn_iUVha58JwEWlQE&sex=1";
+            }
+            else {
+
+                $.modal({
+                    title: "温馨提示",
+                    text: " <br />今天您的免费额度已经花费完了！请支付0.5元领取纸巾",
+                    buttons: [
+                        { text: "取消", className: "default", onClick: function () { console.log(3) } },
+                        { text: "确认支付", onClick: function () { wxpay(); } }
+                    ]
+                });
+            }
+        })
+    }
+
+
+
+    var flag = 1;
+
+    //支付
+    $(".l-pay").on("click", function () {
+        $.showLoading();
+        console.log('点击支付按钮');
+        if (flag == 1) {
+            flag = 0;
+            $.ajax({
+                type: 'GET',
+                url: checkurl,
+                dataType: 'json',
+                data: { "cn": $('#ControlNumber').val() },
+                cache: false,
+                error: function (jqXHR, textStatus, errorThrown) {
+                    //dialogError('您的网络不稳定，请扫码重试！coed:0002');
+                },
+                success: function (data) {
+
+                    console.log(data);
+
+                    hideloading();
+                    if (data.msg_id == 1) {
+                        if (data.error > 0) {
+                            $.alert('/(ㄒoㄒ)/~~<br /><br />手太慢，纸巾已领完啦！老板正在加紧补货中...', '暂停服务', function () {
+                                exit();
+                            })
+                            flag = 1;
+                        }
+                        else {
+                            wxpay();
+                        }
+                    }
+                    else {
+                        $.alert('/(ㄒoㄒ)/~~<br /><br />' + data.msg_text, function () {
+                            exit();
+                        })
+                    }
+                },
+                error: function () {
+                    flag = 1;
+                }
+            });
+        } else {
+            $.alert('请不要重复提交', '温馨提示');
+        }
+
+    });
+
+
+</script>
+
+<script>
+    var browsertype = '1';
+    $(document).ready(function () {
+        var cn = "1012171230001599";
+        if (browsertype == '1') {
+            //微信jssdk
+            wx.config({
+                debug: false,
+                appId: 'wxc32aec54f9aaf7c3',
+                timestamp: '1530667930',
+                nonceStr: 'oTmCBGZPbdyXgZNV',
+                signature: '8c9a93e0c6789f51e16a77e310b777d47dd52bb5',
+                jsApiList: ['onMenuShareTimeline', 'hideMenuItems', 'onMenuShareAppMessage']
+            });
+            //隐藏菜单
+            wx.ready(function () {
+                wx.hideMenuItems({
+                    menuList: ["menuItem:share:brand", "menuItem:share:email", "menuItem:openWithSafari", "menuItem:share:qq", "menuItem:share:weiboApp", "menuItem:favorite", "menuItem:share:facebook", "menuItem:share:QZone", "menuItem:copyUrl"] // 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
+                });
+            })
+        }
+    })
+
+</script>
+
+</html>

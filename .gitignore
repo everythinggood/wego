@@ -1,0 +1,7 @@
+.env
+/.idea/*
+/vendor/
+/logs/*
+/cache/*
+!/logs/README.md
+/public/
